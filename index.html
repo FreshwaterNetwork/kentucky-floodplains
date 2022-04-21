@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="initial-scale=1,width=device-width,maximum-scale=1,user-scalable=no"/>
+      <title>Floodplain Explorer</title>
+
+      <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+      <link rel="stylesheet" href="css/styleguide.css">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/appComponents.css">
+      <link rel="stylesheet" href="css/responsive.css">
+      <script type="text/javascript">
+         let app = {};
+      </script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>   
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>  
+      <script src="https://js.arcgis.com/4.16/"></script>
+   </head>
+
+   <body>
+      <header id="header">
+         <div class="appTitle">Kentucky Floodplain Explorer</div>
+         <div id="searchWidget"></div>
+      </header>
+      <div id="flex-container">  
+         <div id="side-nav">
+            <!-- <div id="toggle-plugin-container" class="single-plugin-mode">
+               <span class="tpc-wrap"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+               <span class="tpc-wrap hide"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+            </div> -->
+            <div id="contentPane">
+               <div id="getHelpBtnWrap" class="getHelpBtnWrap hide">
+                  <button id="getHelpBtn" class="button button-default">Start Using Sample App</button>
+               </div>
+               <div id="umr-wrap" class="flex1 umr-wrap" style="padding:0.5em; color: #5d6165;">
+                  <section class="umr-first-section">
+                     <p id="introP"></p>
+                     <h3>Identify Floodplain Units</h3>
+                     <div id="top-controls"></div>
+                     <div id="opacity-wrap"></div>
+                  </section>
+                  <section id="mng-act-wrap" class="mng-act-wrap">
+                     <div style="position:relative;">
+                        <h3>Filter Floodplain Units</h3>
+                        <div> 
+                           <button id="downloadData" class="button button-default dlssre" disabled style="height:31px; padding:6px 8px;">Download Selected Data</button>
+                           <button id="saveAndShare" class="button button-default dlssre" disabled style="height:31px; padding:6px 8px;">Save and Share</button>
+                           <button id="resetFilters" class="button button-default dlssre" disabled style="height:31px; padding:6px 8px;">Reset Filters</button>
+                        </div>   
+                     </div>
+                  </section>
+                  <section id="sup-layers-wrap" class="sup-layers-wrap">
+                     
+                  </section>
+               </div>
+            </div>
+         </div>
+         <div id="map-toggle">
+            <div class="landscape-toggle"> 
+               <span><i style="margin-bottom: 10px;" class="fas fa-chevron-left"></i>HIDE</span>
+               <span class="hide"><i style="margin-bottom: 10px;" class="fas fa-chevron-right"></i>SHOW</span>
+               <span>CONTROLS<i style="margin-top: 10px;" class="fas fa-chevron-left"></i></span>
+               <span class="hide">CONTROLS<i style="margin-top: 10px;" class="fas fa-chevron-right"></i></span>
+            </div>
+            <div class="portrait-toggle">
+               <span><i style="margin-right: 10px;" class="fas fa-chevron-down"></i>HIDE</span>
+               <span class="hide"><i style="margin-right: 10px;" class="fas fa-chevron-up"></i>SHOW</span>
+               <span>CONTROLS<i style="margin-left: 10px;" class="fas fa-chevron-down"></i></span>
+               <span class="hide">CONTROLS<i style="margin-left: 10px;" class="fas fa-chevron-up"></i></span>
+            </div>
+         </div>
+         <div id="map-div">
+            <div id="viewDiv"></div>
+         </div>
+      </div>
+      <script>
+         // toggle map
+         document.querySelector(`#map-toggle`).addEventListener('click', (() => {            
+            document.querySelectorAll(`#map-toggle span`).forEach(span => {
+               span.classList.toggle("hide")
+            })
+            if (app.mobile){
+               document.querySelector(`#side-nav`).classList.toggle("hide-side-nav-height");
+            } else{
+               document.querySelector(`#side-nav`).classList.toggle("hide-side-nav-width");
+            }
+         }))
+      </script>
+      <script src="js/buildElements.js"></script>
+      <script src="js/eventListeners.js"></script>
+      <script src="js/saveAndShare.js"></script>
+      <script src="js/variables.js"></script>
+      <script src="js/map.js"></script>
+      <script src="js/mapClick.js"></script>
+   </body>
+</html>

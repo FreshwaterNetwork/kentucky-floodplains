@@ -1,0 +1,187 @@
+.sup-layers-wrap{
+	margin-bottom:50px;
+}
+.infoIcon{
+	margin-bottom:-2px; margin-left:3px; cursor:pointer;
+}
+.flex-center{
+	display:flex; align-items:center;
+}
+.flex1{
+	flex:1;
+}
+.flex1a{
+	flex:1; text-align:center;
+}
+.flexColumn{
+	display:flex; flex-direction:column;
+}
+.cntrlWrap{
+	border:1pt solid #c3dbc3; margin:4px 4px 4px 0px; width:410px; padding:5px; position:relative;
+}
+.flexSlideWrap{
+	min-height:30px; align-items:center; position:relative; display:flex;
+}
+.flexSlideWrap .range-slider{
+	margin:0 !important;
+}
+.flexSlideWrap .form-component{
+	margin-bottom:0px;
+}
+.hide{
+	display:none;
+}
+.explainWrap p{
+	margin-top:5px; margin-bottom:5px;
+}
+.getHelpBtnWrap{
+    background-color:#eef3f8; padding:10px 12px; z-index:500; text-align:center;
+}	
+.getHelpBtnWrap .button{
+	font-size:15px; width:100%; color:#2F6384; font-weight:bold;
+}	
+.sidebar-content .getHelpBtnWrap .button{
+	margin-bottom:0;
+}
+.umr-wrap .slider{
+	margin-left:30px;
+}
+.umr-wrap h4{
+	margin-bottom:4px;	
+}
+.mng-act-wrap h4{
+	margin:20px 0 0px 0;
+}
+.umr-count-font{
+	color:#2f6384; text-align:center; margin-top:-5px; margin-bottom:-10px;
+}
+.slider-container .ui-state-disabled {
+    cursor: not-allowed !important;
+}
+.umr-slider-label{
+	text-align:center; 
+}
+.rnum{
+	color:#547545; font-weight:bold;
+}
+.label-off{
+	color:#547545; opacity:0.5;
+}
+.umr-radio-indent{
+	margin-left:45px;
+}
+.toggle-btn input[type=radio]:disabled+label{
+	cursor:not-allowed; opacity:0.5;
+}
+.feInfoWrap{
+	position:absolute; top:-5px; right:-4px;
+}
+.feInfoWrapSub{
+	position:absolute; top:0px; right:4px;
+}
+.fa-info-circle{
+	font-size:21px; color:#457545; cursor:pointer;
+}
+.fa-times{
+	font-size:21px; color:#d64000; cursor:pointer;
+}
+.feInfoClose{
+	position:absolute; top:-11px; right:-8px;
+}
+.feInfoTextWrap{
+	padding:5px; display:none; position:absolute; background:rgb(249,249,249); right:3px; top:3px;
+	border:1pt solid #777; box-shadow: 2px 2px 2px 1px rgba(16,22,26,.5);  border-radius: 5px; z-index: 10;
+}
+.feInfoTextWrap{
+	color:#383b3d; font-size:13px; 
+}
+.umr-wrap .range-slider .ui-widget-header{
+	background:#83b683;
+}
+.umr-wrap .ui-widget.ui-widget-content {
+    border: 1px solid #949494;
+}
+.umr-wrap .slider-container .ui-state-default, .umr-wrap .slider-container .ui-widget-content .ui-state-default, .umr-wrap .slider-container .ui-widget-header .ui-state-default {
+    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #457545!important;
+}
+.umr-wrap .toggle-btn input:checked+label {
+    background-color: #457545;
+}
+.umr-wrap .form-component input[type=checkbox]:checked~.check, .umr-wrap .form-component input[type=radio]:checked~.check {
+    background: #457545;
+    background: linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0)) 0 no-repeat,50% no-repeat #457545;
+    border-color: rgba(16,22,26,.1) rgba(16,22,26,.1) rgba(16,22,26,.3);
+}
+.mng-act-wrap .chev-oc{
+	margin-right: 4px; color: #457445; cursor:pointer;
+}
+.mng-act-wrap .chev-c{
+	display:none;
+}
+.catch-text{
+	position:absolute; top:7px; right:14px; color:#457545; 
+}
+.saveAndShareHeaderWrap{
+	display:flex;
+}
+.saveAndSharePopup{
+	position: absolute;
+	background: #fff;
+	width: 370px;
+	height: 110px;
+	left: 50%;
+	margin-left: -185px;
+	top:50%;
+	margin-top:-55px;
+}
+.saveAndShareHeader{
+	border-radius: 2px;
+	font-size: 14px;
+	padding: 6px 7px;
+	margin: 6px auto 0px 7px;
+	display: block;
+	white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+#saveAndShareLink{
+	font-size: 14px;
+	padding: 7px;
+	border: 1px solid #ddd;
+    width: 210px;
+}
+#saveAndShareButton{
+	height: 31px; 
+	padding: 6px 8px;
+	margin: -5px 0 0 4px;
+}
+#copiedText{
+	color: red;
+	display: none;
+}
+.opacity-slidecontainer{
+	text-align: center;
+}
+.opacity-slidecontainer input[type=range] {
+    -webkit-appearance: none;
+    background-image: linear-gradient(to right, #fff, #6b6b6b);
+    width: 80px;
+    height: 10px;
+    /*border: 1px solid rgb(16,22,26);*/
+    border: 1px solid rgb(16,22,26);
+    margin-left: 4px;
+    border-radius: 5px;
+}
+.opacity-slidecontainer input[type="range"]::-webkit-slider-thumb {
+     -webkit-appearance: none;
+    background-color: #457545;
+    opacity: 1;
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid rgb(16,22,26); 
+
+}
+
