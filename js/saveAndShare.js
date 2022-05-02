@@ -15,7 +15,8 @@ function createURL(){
 	};
 	
 	var linkRequest = {
-		destination: "https://maps.freshwaternetwork.org/dev/western-tennessee-floodplain/?search=" + uri
+		destination: 
+	"https://maps.freshwaternetwork.org/dev/kentucky-floodplain/?search=" + uri
 	};
 	shortUrl = "";
 	$.ajax({

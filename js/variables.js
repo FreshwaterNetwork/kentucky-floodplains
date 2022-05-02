@@ -130,6 +130,12 @@ app.filterObj = {
         label: 'NRCS Watershed Vulnerability Index',
         unit: '',
       },
+      con3: {
+        type: 'slider',
+        field: 'kfact_mean',
+        label: 'Soil erodibility index (K factor)',
+        unit: '',
+      },
     },
   },
   group3: {
@@ -158,6 +164,12 @@ app.filterObj = {
         type: 'slider',
         field: 'resil',
         label: 'Terrestrial resilience',
+        unit: '',
+      },
+      con5: {
+        type: 'slider',
+        field: 'wetspec',
+        label: 'Number of wetland species of conservation interest',
         unit: '',
       },
     },
@@ -267,6 +279,27 @@ app.mapImageLayers = [
     opacity: 0.8,
     supporting: true,
   },
+  {
+    id: 9,
+    visible: true,
+    title: 'Land cover (2019)',
+    opacity: 0.8,
+    supporting: true,
+  },
+  {
+    id: 10,
+    visible: true,
+    title: 'Physiographic regions',
+    opacity: 0.8,
+    supporting: true,
+  },
+  {
+    id: 11,
+    visible: false,
+    title: 'Percent hydric soil',
+    opacity: 0.8,
+    supporting: true,
+  },
 ];
 
 // definition expression root field names
@@ -278,11 +311,13 @@ app.il_tp_del_p = '';
 app.nccpi = '';
 app.drain = '';
 app.NRCS = '';
+app.kfact_mean = '';
 app.nearProt = '';
 app.nearIBA = '';
 app.inTNC = '';
 app.cumu_hci = '';
 app.resil = '';
+app.wetspec = '';
 app.swap1 = '';
 app.swap2 = '';
 app.swap3 = '';
@@ -358,6 +393,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.17,
+      max: 0.48,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -382,6 +426,14 @@ app.sliderObj = {
       max: 1.435,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 2,
+      max: 655,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -497,6 +549,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.17,
+      max: 0.48,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -521,6 +582,14 @@ app.sliderObj = {
       max: 1.429,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 2,
+      max: 655,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -636,6 +705,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.17,
+      max: 0.48,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -660,6 +738,14 @@ app.sliderObj = {
       max: 1.427,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 2,
+      max: 655,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -776,6 +862,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.13,
+      max: 0.52,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -800,6 +895,14 @@ app.sliderObj = {
       max: 2.854,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -917,6 +1020,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.13,
+      max: 0.52,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -941,6 +1053,14 @@ app.sliderObj = {
       max: 3.5,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -1058,6 +1178,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.13,
+      max: 0.52,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1082,6 +1211,14 @@ app.sliderObj = {
       max: 3.487,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -1200,6 +1337,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.07,
+      max: 0.55,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1224,6 +1370,14 @@ app.sliderObj = {
       max: 3.5,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
@@ -1341,6 +1495,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.07,
+      max: 0.55,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1365,6 +1528,14 @@ app.sliderObj = {
       max: 3.5,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within',
     },
     swap1: {
       values: [],
@@ -1482,6 +1653,15 @@ app.sliderObj = {
       step: 0.001,
       info: '<b>NRCS Watershed Vulnerability Index</b><br> Index to quantify watershed vulnerability to pollutant transport from croplands by surface runoff and leaching. Based on: SSURGO land capability class (soil suitability for most kinds of field crops), land cover from 2020 Cropland Data Layer (cropland, hayland, pastureland, forest, or other), and distance from stream. Range: 0-120.',
     },
+    kfact_mean: {
+      values: [],
+      vis: true,
+      min: 0.07,
+      max: 0.55,
+      shfld: true,
+      step: 0.01,
+      info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1506,6 +1686,14 @@ app.sliderObj = {
       max: 3.5,
       step: 0.001,
       info: "<b>Terrestrial resilience</b><br> The terrestrial resilience score estimates the climate resilience of an area of land based on: a). its landscape diversity (estimated microclimates) and b). local connectedness (lack of fragmentation). Each site is scored relative to all other sites in its ecoregion that have the same geophysical setting based on soils, bedrock geology, and elevation zone. Scores are standard deviations above the average score. Least resilient = -3.5 to -2.0; less resilient = -2.0 to -1.0; slightly less resilient = -1.0 to -0.5; average/median resilient = -0.5 to +0.5; slightly more resilient = +0.5 to +1.0; more resilient = +1.0 to +2.0; most resilient = +2.0 to +3.5. <a href='https://maps.tnc.org/resilientland/' target='_blank'>More Info</a>",
+    },
+    wetspec: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 46,
+      shfld: true,
+      info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
     },
     swap1: {
       values: [],
