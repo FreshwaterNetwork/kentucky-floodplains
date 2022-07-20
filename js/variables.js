@@ -136,6 +136,24 @@ app.filterObj = {
         label: 'Soil erodibility index (K factor)',
         unit: '',
       },
+      con4: {
+        type: 'slider',
+        field: 'GIindex',
+        label: 'Kentucky green infrastructure priority analysis',
+        unit: '',
+      },
+      con5: {
+        type: 'slider',
+        field: 'cropperc',
+        label: '% of watershed in cropland or pasture',
+        unit: '',
+      },
+      con6: {
+        type: 'slider',
+        field: 'karst_perc',
+        label: '% of watershed in karst',
+        unit: '',
+      },
     },
   },
   group3: {
@@ -170,6 +188,12 @@ app.filterObj = {
         type: 'slider',
         field: 'wetspec',
         label: 'Number of wetland species of conservation interest',
+        unit: '',
+      },
+      con6: {
+        type: 'slider',
+        field: 'SWAPCount',
+        label: 'State Wildlife Action Plan species',
         unit: '',
       },
     },
@@ -312,11 +336,15 @@ app.nccpi = '';
 app.drain = '';
 app.NRCS = '';
 app.kfact_mean = '';
+app.GIindex = '';
+app.cropperc = '';
+app.karst_perc = '';
 app.nearProt = '';
 app.nearIBA = '';
 app.inTNC = '';
 app.cumu_hci = '';
 app.resil = '';
+app.SWAPCount = '';
 app.wetspec = '';
 app.swap1 = '';
 app.swap2 = '';
@@ -402,6 +430,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.483,
+      max: 0.658,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -434,6 +486,14 @@ app.sliderObj = {
       max: 655,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 197,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -480,7 +540,7 @@ app.sliderObj = {
       max: 3.196,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // huc 8 + 1 in 100 year flood
@@ -558,6 +618,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.492,
+      max: 0.664,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -590,6 +674,14 @@ app.sliderObj = {
       max: 655,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 197,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -636,7 +728,7 @@ app.sliderObj = {
       max: 3.196,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // huc 8 + 1 in 500 year flood
@@ -714,6 +806,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.499,
+      max: 0.671,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -746,6 +862,14 @@ app.sliderObj = {
       max: 655,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 197,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -792,7 +916,7 @@ app.sliderObj = {
       max: 3.196,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
 
@@ -871,6 +995,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.369,
+      max: 0.853,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -903,6 +1051,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -951,7 +1107,7 @@ app.sliderObj = {
       max: 5.806,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // huc 12 + 1 in 100 year flood
@@ -1029,6 +1185,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.405,
+      max: 0.822,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1061,6 +1241,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -1109,7 +1297,7 @@ app.sliderObj = {
       max: 5.806,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // huc 12 + 1 in 500 year flood
@@ -1187,6 +1375,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.407,
+      max: 0.829,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1219,6 +1431,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -1267,7 +1487,7 @@ app.sliderObj = {
       max: 5.806,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
 
@@ -1346,6 +1566,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.322,
+      max: 0.985,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1378,6 +1622,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -1426,7 +1678,7 @@ app.sliderObj = {
       max: 7.037,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // catchment + 1 in 100 year flood
@@ -1504,6 +1756,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.322,
+      max: 0.987,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1536,6 +1812,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -1584,7 +1868,7 @@ app.sliderObj = {
       max: 7.037,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
   // catchment + 1 in 500 year flood
@@ -1662,6 +1946,30 @@ app.sliderObj = {
       step: 0.01,
       info: '<b>Soil erodibility index (K factor)</b><br> The K factor quantifies the relative susceptibility of the soil to sheet & rill erosion. It is derived from texture, organic matter content, soil structure, and saturated hydraulic conductivity. It ranges from 0.02 (least erodible) to 0.64 (most erodible).',
     },
+    GIindex: {
+      values: [],
+      vis: true,
+      min: 0.322,
+      max: 0.975,
+      step: 0.001,
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    cropperc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
+    karst_perc: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+    },
     nearProt: {
       values: [],
       vis: true,
@@ -1694,6 +2002,14 @@ app.sliderObj = {
       max: 46,
       shfld: true,
       info: '<b>Number of wetland species of conservation interest</b><br> Total number of wetland species that are locally rare, globally rare, state- or federally listed, or tracked due to other conservation concerns. Data from the Office of Kentucky Nature Preserves. Counts are at the HUC12 level. For HUC8s, the counts from the nested HUC12s are totaled. For catchments, counts shown are those of the HUC12 the catchment is within.',
+    },
+    SWAPCount: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 107,
+      shfld: true,
+      info: "<b>State Wildlife Action Plan species</b><br>Total number of species of greatest conservation need identified in the Kentucky State Wildlife Action Plan (SWAP). Data from Kentucky Dept. of Fish & Wildlife Resources. Counts are at the HUC12 level. For catchments, counts shown are those of the HUC12 the catchment is within. <a href='https://fw.ky.gov/WAP/Pages/default.aspx' target='_blank'>More Info</a>",
     },
     swap1: {
       values: [],
@@ -1742,7 +2058,7 @@ app.sliderObj = {
       max: 7.037,
       shfld: true,
       step: 0.001,
-      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://link.springer.com/article/10.1007/s11069-020-04470-2' target='_blank'>More Info</a>",
+      info: "<b>Index of social vulnerability to environmental hazards</b><br> Index characterizing social vulnerability to environmental hazards, drawing on 22 demographic variables. At the national scale, values below -1 are considered low social vulnerability, -1 to +1 are medium, and above +1 are high. Scores are standard deviations from an average vulnerability score of 0. Relative to the continental U.S., scores below -1 may be considered low social vulnerability, -1 to +1 medium, and above +1 high. <a href='https://www.sc.edu/study/colleges_schools/artsandsciences/centers_and_institutes/hvri/data_and_resources/sovi/index.php' target='_blank'>More Info</a>",
     },
   },
 };
