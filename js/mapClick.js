@@ -84,6 +84,8 @@ function mapClick() {
           let IL_TP_DEL = commaSeparateNumber(Math.round(a.il_tp_del));
           let TP_farm = a.TP_farm.toFixed(1);
           let SOVI = a.SOVI.toFixed(3);
+          let cropacres = commaSeparateNumber(Math.round(a.crop_acres));
+          let pastacres = commaSeparateNumber(Math.round(a.past_acres));
 
           app.view.popup.set('dockOptions', {
             breakpoint: false,
@@ -105,7 +107,10 @@ function mapClick() {
               Phosphorus load from farm fertilizer & manure (%): <b>${TP_farm}</b><br>
   						${popLabel}: <b>${pop}</b><br>
 							${damagesLabel}: <b>$${damages}</b><br>
-							Social vulnerability index: <b>${SOVI}</b>
+							Social vulnerability index: <b>${SOVI}</b><br>
+              Acres of cultivated cropland: <b>${cropacres}</b><br>
+              Acres of hay / pasture: <b>${pastacres}</b>
+
 						`,
           });
         }

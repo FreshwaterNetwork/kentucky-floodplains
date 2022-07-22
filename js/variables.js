@@ -84,26 +84,42 @@ app.filterObj = {
     controls: {
       con0: {
         type: 'slider',
-        field: 'il_tn_p',
-        label: 'Local nutrient loading (nitrogen)',
+        field: 'iy_tn_del_p',
+        label: 'Nutrient loading to Gulf of Mexico (nitrogen)',
         unit: '',
       },
       con1: {
         type: 'slider',
-        field: 'il_tp_p',
-        label: 'Local nutrient loading (phosphorus)',
+        field: 'iy_tp_del_p',
+        label: 'Nutrient loading to Gulf of Mexico (phosphorus)',
         unit: '',
       },
       con2: {
         type: 'slider',
-        field: 'il_tn_del_p',
-        label: 'Nutrient loading to Gulf of Mexico (nitrogen)',
+        field: 'iy_tn_del_farm_p',
+        label:
+          'Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure',
         unit: '',
       },
       con3: {
         type: 'slider',
-        field: 'il_tp_del_p',
-        label: 'Nutrient loading to Gulf of Mexico (phosphorus)',
+        field: 'iy_tp_del_farm_p',
+        label:
+          'Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure',
+        unit: '',
+      },
+      con4: {
+        type: 'slider',
+        field: 'iy_tn_del_waste_p',
+        label:
+          'Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff',
+        unit: '',
+      },
+      con5: {
+        type: 'slider',
+        field: 'iy_tp_del_waste_p',
+        label:
+          'Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff',
         unit: '',
       },
     },
@@ -328,10 +344,12 @@ app.mapImageLayers = [
 
 // definition expression root field names
 app.Acres = '';
-app.il_tn_p = '';
-app.il_tp_p = '';
-app.il_tn_del_p = '';
-app.il_tp_del_p = '';
+app.iy_tn_del_p = '';
+app.iy_tp_del_p = '';
+app.iy_tn_del_farm_p = '';
+app.iy_tp_del_farm_p = '';
+app.iy_tn_del_waste_p = '';
+app.iy_tp_del_waste_p = '';
 app.nccpi = '';
 app.drain = '';
 app.NRCS = '';
@@ -365,37 +383,53 @@ app.sliderObj = {
       gtmax: false,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -452,7 +486,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -553,37 +587,53 @@ app.sliderObj = {
       gtmax: false,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -741,37 +791,53 @@ app.sliderObj = {
       gtmax: false,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -930,37 +996,53 @@ app.sliderObj = {
       gtmax: true,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -1120,37 +1202,53 @@ app.sliderObj = {
       gtmax: true,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -1310,37 +1408,53 @@ app.sliderObj = {
       gtmax: true,
       info: '<b>Available unprotected floodplain area for the currently specified flood frequency</b><br>Area of floodplain in forest, wetland, or grassland that is not currently in protected status.',
     },
-    il_tn_p: {
+    iy_tn_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (nitrogen)</b><br>Kg/yr of nitrogen exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br>Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_p: {
+    iy_tp_del_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Local nutrient loading (phosphorus)</b><br>Kg/yr of phosphorus exported at the mouth of the catchment, normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b>Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale.<br><a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tn_del_p: {
+    iy_tn_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen)</b><br> Kg/yr of nitrogen from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw values). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from fertilizer & manure</b><br> Kg/yr of nitrogen from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
-    il_tp_del_p: {
+    iy_tp_del_farm_p: {
       values: [],
       vis: true,
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus)</b><br> Kg/yr of phosphorus from within a given watershed that reaches the Gulf of Mexico, all normalized to 0-100 scale. (Click watershed units in map to see raw value). <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from fertilizer & manure</b><br> Kg/yr of phosphorus from within a given watershed, originating from fertilizer and manure, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tn_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (nitrogen) -- from wastewater & urban runoff</b><br> Kg/yr of nitrogen from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
+    },
+    iy_tp_del_waste_p: {
+      values: [],
+      vis: true,
+      min: 0,
+      max: 100,
+      shfld: true,
+      info: "<b>Nutrient loading to Gulf of Mexico (phosphorus) -- from wastewater & urban runoff<br> Kg/yr of phosphorus from within a given watershed, originating from wastewater treatment plants and urban runoff, that reaches the Gulf of Mexico, divided by the watershed's area, and normalized to 0-100 scale. <a href='https://sparrow.wim.usgs.gov/sparrow-midwest-2012/' target='_blank'>More Info</a>",
     },
     nccpi: {
       values: [],
@@ -1381,7 +1495,7 @@ app.sliderObj = {
       min: 0.407,
       max: 0.829,
       step: 0.001,
-      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href=' http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
       values: [],
@@ -1389,7 +1503,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in cropland or pasture</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: '<b>% of watershed in cropland or pasture</b><br>The percent of watershed area in cultivated crops or pasture / hay.',
     },
     karst_perc: {
       values: [],

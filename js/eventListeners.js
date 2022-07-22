@@ -487,10 +487,12 @@ function cbChecker(t) {
 function layerDefs() {
   app.obj.exp = [
     app.Acres,
-    app.il_tn_p,
-    app.il_tp_p,
-    app.il_tn_del_p,
-    app.il_tp_del_p,
+    app.iy_tn_del_p,
+    app.iy_tp_del_p,
+    app.iy_tn_del_farm_p,
+    app.iy_tp_del_farm_p,
+    app.iy_tn_del_waste_p,
+    app.iy_tp_del_waste_p,
     app.nccpi,
     app.drain,
     app.NRCS,
