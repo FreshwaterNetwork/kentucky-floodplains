@@ -467,9 +467,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.483,
-      max: 0.658,
+      min: 0.554,
+      max: 0.748,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -671,9 +672,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.492,
-      max: 0.664,
+      min: 0.554,
+      max: 0.748,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -690,7 +692,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -875,9 +877,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.499,
-      max: 0.671,
+      min: 0.554,
+      max: 0.748,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -894,7 +897,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -1080,9 +1083,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.369,
-      max: 0.853,
+      min: 0.472,
+      max: 0.817,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -1099,7 +1103,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -1286,9 +1290,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.405,
-      max: 0.822,
+      min: 0.472,
+      max: 0.817,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -1305,7 +1310,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -1492,9 +1497,10 @@ app.sliderObj = {
     GIindex: {
       values: [],
       vis: true,
-      min: 0.407,
-      max: 0.829,
+      min: 0.472,
+      max: 0.817,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href=' http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -1511,7 +1517,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -1700,8 +1706,9 @@ app.sliderObj = {
       values: [],
       vis: true,
       min: 0.322,
-      max: 0.985,
+      max: 0.94,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -1718,7 +1725,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -1906,8 +1913,9 @@ app.sliderObj = {
       values: [],
       vis: true,
       min: 0.322,
-      max: 0.987,
+      max: 0.94,
       step: 0.001,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -1924,7 +1932,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
@@ -2112,8 +2120,8 @@ app.sliderObj = {
       values: [],
       vis: true,
       min: 0.322,
-      max: 0.975,
-      step: 0.001,
+      max: 0.94,
+      shfld: true,
       info: "<b>Kentucky green infrastructure priority analysis</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='http://www.kymitigation.org/wp-content/uploads/2021/07/Kentucky-Green-Infrastructure-and-Open-Space-Analysis-Silver-Jackets-project-Laura-Mattingly-and-Rachel-Bryd.pdf' target='_blank'>More Info</a>",
     },
     cropperc: {
@@ -2130,7 +2138,7 @@ app.sliderObj = {
       min: 0,
       max: 100,
       shfld: true,
-      info: "<b>% of watershed in karst</b><br>An index signifying suitability for green infrastructure development (1 = highest suitability, 0 = lowest suitability). The values used in this tool represent the average of this index within the floodplain. Index is based on: soil type, slope, land cover, depth to water table, impervious surface, and whether location is in 100-year floodplain. Dataset developed by U.S. Army Corps of Engineers / Kentucky Silver Jackets team. <a href='https://www.usgs.gov/core-science-systems/science-analytics-and-synthesis/gap/science/protected-areas' target='_blank'>More Info</a>",
+      info: "<b>% of watershed in karst</b><br>The percent of watershed area in karst. <a href='https://www.uky.edu/KGS/karst/karst_resources.php' target='_blank'>More Info</a>",
     },
     nearProt: {
       values: [],
