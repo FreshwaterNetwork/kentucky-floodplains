@@ -342,6 +342,7 @@ function eventListeners() {
         layerName = 'KY_catchments';
       }
       var params = { layerName: layerName, where: app.definitionExpression };
+      console.log(app.definitionExpression);
       gp.submitJob(params).then(function (jobInfo) {
         var jobid = jobInfo.jobId;
         var options = {
