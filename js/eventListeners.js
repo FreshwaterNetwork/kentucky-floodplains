@@ -119,22 +119,22 @@ function eventListeners() {
           }
         }
       });
-      app.layers.sublayers.forEach((sl) => {
-        sl.visible = false;
+      app.hucLayerIds.forEach((id) => {
+        app.findLayerById(id).visible = false;
       });
-      var layer = app.layers.findSublayerById(parseInt(app.obj.hucLayer));
+      var layer = app.findLayerById(parseInt(app.obj.hucLayer));
       layer.visible = true;
       layer.opacity = app.obj.op;
-    })
+    }),
   );
   // opacity slider for watershed layers
   document.querySelectorAll('.opacity-slider').forEach((slider) =>
     slider.addEventListener('mouseup', () => {
       app.obj.op = slider.value;
 
-      let sublayer = app.layers.findSublayerById(parseInt(app.obj.hucLayer));
+      let sublayer = app.findLayerById(parseInt(app.obj.hucLayer));
       sublayer.opacity = app.obj.op;
-    })
+    }),
   );
 
   // Checkboxes for sliders
@@ -200,7 +200,7 @@ function eventListeners() {
           if (v.checked == true) {
             $(v).trigger('click');
           }
-        }
+        },
       );
     }
     if (c.target.checked == false) {
@@ -219,14 +219,14 @@ function eventListeners() {
           .find('input'),
         function (i, v) {
           $(v).attr('disabled', true);
-        }
+        },
       );
     }
     cbChecker();
   });
   // Checkboxes for supporting layers
   $('#sup-layers-wrap .sup_cb').on('click', function (c) {
-    var sublayer = app.layers.findSublayerById(parseInt(c.target.value));
+    var sublayer = app.findLayerById(parseInt(c.target.value));
     sublayer.visible = c.target.checked;
   });
   // Radio button clicks
@@ -537,7 +537,7 @@ function layerDefs() {
   }
   //set definition expression
   app.definitionExpression = exp;
-  var layer = app.layers.findSublayerById(parseInt(app.obj.hucLayer));
+  var layer = app.findLayerById(parseInt(app.obj.hucLayer));
   layer.definitionExpression = exp;
 }
 function commaSeparateNumber(val) {

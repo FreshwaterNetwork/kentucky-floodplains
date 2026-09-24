@@ -321,14 +321,14 @@ app.mapImageLayers = [
   },
   {
     id: 9,
-    visible: true,
+    visible: false,
     title: 'Land cover (2019)',
     opacity: 0.8,
     supporting: true,
   },
   {
     id: 10,
-    visible: true,
+    visible: false,
     title: 'Physiographic regions',
     opacity: 0.8,
     supporting: true,

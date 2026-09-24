@@ -28,7 +28,7 @@ require([
   QueryTask,
   Query,
   GraphicsLayer,
-  watchUtils
+  watchUtils,
 ) {
   // create map
   app.map = new Map({
@@ -76,7 +76,7 @@ require([
     'basemap.title',
     function (newValue, oldValue, property, object) {
       bgExpand.collapse();
-    }
+    },
   );
 
   //create search widget
@@ -96,15 +96,113 @@ require([
   // move zoom controls to top right
   app.view.ui.move(['zoom'], 'top-right');
 
-  // create map layers - the source can be a map service or an AGO web map - sublayers are defined in variables.js
-  app.layers = new MapImageLayer({
-    url: 'https://cirrus.tnc.org/arcgis/rest/services/FN_AGR/KY_Floodplain/MapServer',
-    sublayers: app.mapImageLayers,
+  // Map old service IDs to new sources.
+  // Vectors: HUC watersheds → Cirrus_Watersheds FeatureServer (KY layers)
+  //          Supporting layers → Cirrus_KY FeatureServer
+  // Rasters: → CCS_Rasters_1 MapServer
+  var layerMapping = {
+    0: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/0',
+    }, // HUC8
+    1: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/1',
+    }, // HUC12
+    2: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/2',
+    }, // NHDcatchment
+    6: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/6',
+    }, // PADUS_plus_NCED
+    7: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/7',
+    }, // FEMA_flood_zones
+    10: {
+      type: 'vector',
+      url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/10',
+    }, // physiographic_regions
+    3: { type: 'raster', rasterId: 594 }, // floodplains_1in5year
+    4: { type: 'raster', rasterId: 595 }, // floodplains_1in100year
+    5: { type: 'raster', rasterId: 596 }, // floodplains_1in500year
+    8: { type: 'raster', rasterId: 597 }, // soils_poordrainage
+    9: { type: 'raster', rasterId: 598 }, // NLCD_2019
+    11: { type: 'raster', rasterId: 599 }, // hydric_soils
+  };
+
+  // Build raster sublayer config from app.mapImageLayers initial visibility
+  var rasterSublayers = app.mapImageLayers
+    .filter(function (lc) {
+      return layerMapping[lc.id] && layerMapping[lc.id].type === 'raster';
+    })
+    .map(function (lc) {
+      return {
+        id: layerMapping[lc.id].rasterId,
+        visible: lc.visible,
+        opacity: lc.opacity,
+      };
+    });
+
+  app.rasterLayer = new MapImageLayer({
+    url: 'https://cumulus-ags.tnc.org/arcgis/rest/services/nascience/CCS_Rasters_1/MapServer',
+    sublayers: rasterSublayers,
   });
+  // Add raster layer first so it renders beneath vector layers
+  app.map.add(app.rasterLayer);
+
+  // Create layerMap and add layers in explicit render order:
+  //   1. rasterLayer (bottom) — already added above
+  //   2. HUC watershed layers
+  //   3. Supporting vector layers (top, just below results graphics)
+  app.layerMap = {};
+
+  // Pass 1: raster sublayers — stored in layerMap, rendered via app.rasterLayer
+  [3, 4, 5, 8, 9, 11].forEach(function (id) {
+    app.layerMap[id] = app.rasterLayer.findSublayerById(
+      layerMapping[id].rasterId,
+    );
+  });
+
+  // Pass 2: HUC watershed layers — added next, render above rasters
+  [0, 1, 2].forEach(function (id) {
+    var lc = app.mapImageLayers.find(function (l) {
+      return l.id === id;
+    });
+    app.layerMap[id] = new FeatureLayer({
+      url: layerMapping[id].url,
+      visible: lc.visible,
+      opacity: lc.opacity,
+      popupEnabled: false,
+    });
+    app.map.add(app.layerMap[id]);
+  });
+
+  // Pass 3: supporting vector layers — added last, render above HUC layers
+  [6, 7, 10].forEach(function (id) {
+    var lc = app.mapImageLayers.find(function (l) {
+      return l.id === id;
+    });
+    app.layerMap[id] = new FeatureLayer({
+      url: layerMapping[id].url,
+      visible: lc.visible,
+      opacity: lc.opacity,
+      popupEnabled: false,
+    });
+    app.map.add(app.layerMap[id]);
+  });
+
+  // Helper: look up a layer by its old service ID
+  app.findLayerById = function (oldId) {
+    return app.layerMap[oldId];
+  };
+  // HUC layer IDs used when toggling watershed visibility
+  app.hucLayerIds = [0, 1, 2];
+
   // graphics layer for map click graphics
   app.resultsLayer = new GraphicsLayer();
-  // add layers to map
-  app.map.add(app.layers);
   app.map.add(app.resultsLayer);
 
   // create legend
