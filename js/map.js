@@ -125,12 +125,12 @@ require([
       type: 'vector',
       url: 'https://services.arcgis.com/F7DSX1DSNSiWmOqh/arcgis/rest/services/Cirrus_KY/FeatureServer/10',
     }, // physiographic_regions
-    3: { type: 'raster', rasterId: 594 }, // floodplains_1in5year
-    4: { type: 'raster', rasterId: 595 }, // floodplains_1in100year
-    5: { type: 'raster', rasterId: 596 }, // floodplains_1in500year
-    8: { type: 'raster', rasterId: 597 }, // soils_poordrainage
-    9: { type: 'raster', rasterId: 598 }, // NLCD_2019
-    11: { type: 'raster', rasterId: 599 }, // hydric_soils
+    3: { type: 'raster', rasterId: 613 }, // floodplains_unprotected_1in5year
+    4: { type: 'raster', rasterId: 614 }, // floodplains_unprotected_1in100year
+    5: { type: 'raster', rasterId: 615 }, // floodplains_unprotected_1in500year
+    8: { type: 'raster', rasterId: 616 }, // soils_poordrainage
+    9: { type: 'raster', rasterId: 617 }, // NLCD_2019
+    11: { type: 'raster', rasterId: 618 }, // hydric_soils
   };
 
   // Build raster sublayer config from app.mapImageLayers initial visibility
